@@ -1,10 +1,9 @@
 <?php
 	//HEEEY!
 
+echo "hej"; 
+//	require_once('config.php');
 
-	require_once('config.php');
-
-	DDeventz::init();
 
 
 ?>
