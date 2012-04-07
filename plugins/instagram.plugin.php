@@ -97,7 +97,8 @@ class instagram extends plugin {
 							'hires_url' => $result->images->standard_resolution->url
 						)
 					)
-				)
+				),
+				'time' => $result->created_time
 			);
 
 			array_push($posts, $post);
