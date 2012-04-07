@@ -1,5 +1,5 @@
 <?php
-require_once('plugin.plugin.php');
+require_once('plugin.parent.php');
 
 class instagram extends plugin {
 
