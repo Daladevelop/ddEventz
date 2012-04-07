@@ -10,15 +10,27 @@ class instagram extends plugin {
 
 	private $query = '';
 
-	private $config = array();
+	private $parameters = array();
+
+	// Instagram Settings
+	private $config = array(
+			'client_id' => '3b2a4b4860bb4899b0405b7bd3cb4be0'
+		);
 
 	public function __construct () {
-		$this->service = 'instagram'; 
+		$this->service = 'instagram';
 		return true;
 	}
 
 	public function setParameters($paramters) {
-		$this->config = $paramters;
+		$this->parameters = $paramters;
+
+		// set correct endpoint url and query
+		if($this->parameters['tag']) {
+			$this->setEndpoint('tag');
+		} elseif($this->parameters['lat'] && $this->parameters['lon']) {
+			$this->setEndpoint('location');
+		}
 
 		return true;
 	}
@@ -29,17 +41,18 @@ class instagram extends plugin {
 		return $response;
 	}
 
+	// set correct endpoint url and query
 	public function setEndpoint($name) {
 		$endpointUrl = '';
 
 		// Setup correct endpoint
 		switch ($name) {
 			case 'tag':
-				$endpointUrl = sprintf($this->endpoints[$name], $this->config['tag'], $this->config['client_id']);
+				$endpointUrl = sprintf($this->endpoints[$name], $this->parameters['tag'], $this->config['client_id']);
 				break;
 
 			case 'location':
-				$endpointUrl = sprintf($this->endpoints[$name], $this->config['lat'], $this->config['lon'], $this->config['distance'], $this->config['client_id']);
+				$endpointUrl = sprintf($this->endpoints[$name], $this->parameters['lat'], $this->parameters['lon'], $this->config['distance'], $this->parameters['client_id']);
 				break;
 		}
 
@@ -61,7 +74,3 @@ class instagram extends plugin {
 	}
 
 }
-
-
-
-
