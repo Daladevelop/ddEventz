@@ -16,7 +16,8 @@ class DDeventz
 		global $parameters; 
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			return $plugin->getFeed($parameters); 
+			$plugin->setParameters($parameter); 
+			return $plugin->getFeed(); 
 
 		}
 
