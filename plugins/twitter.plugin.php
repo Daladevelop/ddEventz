@@ -78,7 +78,15 @@ class twitter extends plugin {
 		foreach ($r->results as $tweet) {
 			$post = array (
 				'id' => $tweet->id_str,
-				'content' => $tweet->text
+				'metadata' => array(
+					'service' => 'twitter',
+					'handle' => $tweet->from_user,
+					'profile_url' => 'http://twitter.com/' . $tweet->from_user
+				),
+				'content' => array(
+					'text' => $tweet->text
+				),
+				'time' => strtotime($tweet->created_at)
 			);
 			array_push($posts, $post);
 		}
