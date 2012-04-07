@@ -13,6 +13,7 @@ class pluginLoader
 			require_once($plugin);
 			
 			$plugin = substr($plugin, 0, -11);
+			$plugin = substr($plugin, 8); 
 
 			array_push(self::$plugins,new $plugin);
 				
