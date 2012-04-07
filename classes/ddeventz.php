@@ -13,9 +13,10 @@ class DDeventz
 
 	public static function generateFeed()
 	{
+		global $parameters; 
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			return $plugin->getFeed(); 
+			return $plugin->getFeed($parameters); 
 
 		}
 

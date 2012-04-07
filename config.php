@@ -10,8 +10,8 @@ error_reporting(E_ALL);
 //First time settings fo loading feed:
 global $parameters = array(
 	'tag' => "daladevelop",
-	'lag' => 60.6054, 
-	'long' =>  15.6535, 
+	'lat' => 60.6054, 
+	'lon' =>  15.6535, 
 	'distance' => 5000);
 
 //All config settings are done, lets do this!

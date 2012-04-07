@@ -14,9 +14,9 @@ class plugin
 
 	}
 
-	public function getFeed()
+	public function getFeed($parameters)
 	{
-		return "{'id': 0, 'service': 'dummy','content': '<h1> I AM DUMB! </h1>','timestamp':' ".time()."'}";
+		return "{'id': 0, 'service': 'dummy','content': '<h1> I AM DUMB AND TAGGED WITH ".$parameters['tag']." </h1>','timestamp':' ".time()."'}";
 
 	}
 
