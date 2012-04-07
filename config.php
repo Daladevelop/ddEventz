@@ -1,6 +1,7 @@
 <?php
 //CONFIG FILE FOR DDEventz!
 
+//enable error reporting
 ini_set('display_errors', 1); 
 ini_set('log_errors', 1); 
 error_reporting(E_ALL);
@@ -13,6 +14,8 @@ error_reporting(E_ALL);
 
 
 
+//First time settings fo loading feed:
+global $parameters = array('tag' => "#daladevelop",'lag' => 60.6054, 'long' =>  15.6535, 'distance' => 5000);
 
 
 
@@ -20,18 +23,18 @@ error_reporting(E_ALL);
 
 
 
+//All config settings are done, lets do this!
 
-	//All config settings are done, lets do this!
-
-	//load all requirements
-	require_once('classes/ddeventz.php');
-	require_once('classes/loadplugins.php');
+//load all requirements
+require_once('classes/ddeventz.php');
+require_once('classes/loadplugins.php');
 	
 
 
-	//Load all social plugins
-	pluginLoader::all();
+//Load all social plugins
+pluginLoader::all();
 
-	DDEventz::initApp();
+//start things up
+DDEventz::initApp();
 
 ?>
