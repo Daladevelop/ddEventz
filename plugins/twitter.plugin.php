@@ -1,5 +1,8 @@
 <?php
 
+require_once('plugin.plugin.php');
+
+
 class twitter extends plugin {
 
 	private $geo = array();
@@ -7,18 +10,21 @@ class twitter extends plugin {
 
 	public function __construct() {
 		$this->service = 'twitter';	
+
 	}
 
 	public function setParameters($parameters) {
-		/* Set the parameters for the query to twitter */
+		// Set the parameters for the query to twitter
 		if (isset($parameters['tag'])) {
 			$this->tag = $tag;	
 		}
 
 		if ((isset($parameters['lat'])) && (isset($parameters['lon']))) {
-			$this->geo('lat' => $parameters['lat'], 'lon' => $parameters['lon']);
-		
-			/* Check if a distance is set. If not, fall back to a default */
+			//$this->geo['lat' => $parameters['lat'], 'lon' => $parameters['lon']];
+			$this->geo['lat'] = $parameters['lat'];
+			$this->geo['lon'] = $parameters['lon'];
+
+			// Check if a distance is set. If not, fall back to a default
 			if (isset($parameters['distance'])) {
 				$this->geo['distance'] = $parameters['distance'];	
 			} else {
@@ -32,13 +38,14 @@ class twitter extends plugin {
 		$this->makeTwitterQuery();
 		
 		$response = $this->requestData();
+		return $response;
 	}
 	
 
-	/* twitter class specific methods is below here */
+	// twitter class specific methods is below here
 
 	private function makeTwitterQuery() {
-		/* The basic URL for the twitter search API */
+		// The basic URL for the twitter search API
 		$base_query = 'http://search.twitter.com/search.json?q=';
 
 		if (isset($this->tag)) { // Make a search query by tag
@@ -50,7 +57,8 @@ class twitter extends plugin {
 	 * Request the tweets from the twitter api
 	 */
 	private function requestData() {
-		/* Set up cURL */
+		// Set up cURL 
+		echo $this->query;
 		$curl = curl_init($this->query); 
 		curl_setopt($curl, CURLOPT_POST, false); 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
