@@ -23,6 +23,12 @@ class pluginLoader
 
 	}
 
+	public function plugins()
+	{
+		return self::$plugins; 
+
+	}
+
 
 }
 
