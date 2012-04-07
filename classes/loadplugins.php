@@ -16,7 +16,7 @@ class pluginLoader
 			$plugin = substr($plugin, 8); 
 
 			array_push(self::$plugins,new $plugin);
-				
+			
 
 
 		}

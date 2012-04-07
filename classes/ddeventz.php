@@ -6,8 +6,8 @@ class DDeventz
 {
 	public static function initApp()
 	{
+		echo self::generateFeed(); 
 		
-
 
 	}
 
@@ -15,7 +15,7 @@ class DDeventz
 	{
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			echo $plugin->getFeed(); 
+			return $plugin->getFeed(); 
 
 		}
 
