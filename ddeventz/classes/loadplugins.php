@@ -2,12 +2,20 @@
 
 class pluginLoader
 {
+	private static $plugins = array(); 
+
 	public function all()
 	{
 		//Load all classes
 		foreach( glob("plugins/*.plugin.php") as $plugin)
 		{
-			echo $plugin; 
+			//require them
+			require_once($plugin);
+			
+			$plugin = substr($plugin, 0, -11);
+
+			array_push(self::$plugins,new $plugin);
+				
 
 
 		}
