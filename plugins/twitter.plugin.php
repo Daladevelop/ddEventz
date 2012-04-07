@@ -27,6 +27,12 @@ class twitter extends plugin {
 		}
 
 	}
+
+	public function getFeed() {
+		$this->makeTwitterQuery();
+		
+		$response = $this->requestData();
+	}
 	
 
 	/* twitter class specific methods is below here */
@@ -38,6 +44,20 @@ class twitter extends plugin {
 		if (isset($this->tag)) { // Make a search query by tag
 			$this->query = $base_query . urlencode($this->tag);
 		}
+	}
+
+	/**
+	 * Request the tweets from the twitter api
+	 */
+	private function requestData() {
+		/* Set up cURL */
+		$curl = curl_init($this->query); 
+		curl_setopt($curl, CURLOPT_POST, false); 
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$response = curl_exec($curl);
+		curl_close($curl);
+			
+		return $response;
 	}
 
 }
