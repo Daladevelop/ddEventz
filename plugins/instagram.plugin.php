@@ -67,10 +67,43 @@ class instagram extends plugin {
 			$content = stream_get_contents($handle);
 			fclose($handle);
 
+			$content = $this->parseAPIResponse($content);
 			return $content;
 		} else {
 			return false;
 		}
+	}
+
+
+	// Parse the result from instagram's API
+	private function parseAPIResponse($r) {
+		$r = json_decode($r);
+		$posts = array();
+
+		foreach ($r->data as $result) {
+			$post = array (
+				'id' => $result->id,
+				'metadata' => array(
+					'service' => 'instagram',
+					'handle' => $result->caption->from->username
+				),
+				'content' => array(
+					'text' => $result->caption->text,
+					'media' => array(
+						array(
+							'type' => 'image',
+							'tumbnail_url' => $result->images->thumbnail->url,
+							'lowres_url' => $result->images->low_resolution->url,
+							'hires_url' => $result->images->standard_resolution->url
+						)
+					)
+				)
+			);
+
+			array_push($posts, $post);
+		}
+
+		return json_encode($posts);
 	}
 
 }
