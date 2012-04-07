@@ -37,7 +37,9 @@ class twitter extends plugin {
 		$this->makeTwitterQuery();
 		
 		$response = $this->requestData();
-		return $response;
+		//$response = json_decode($response);
+		//$response = json_encode($response->results);
+		return $this->parseAPIResponse($response);
 	}
 	
 
@@ -64,6 +66,24 @@ class twitter extends plugin {
 		curl_close($curl);
 			
 		return $response;
+	}
+
+	// Parse the result from twitters API
+	private function parseAPIResponse($r) {
+		$r = json_decode($r);
+		//$r = $r->result;
+		$posts = array();
+		//print_r($r->results);
+
+		foreach ($r->results as $tweet) {
+			$post = array (
+				'id' => $tweet->id_str,
+				'content' => $tweet->text
+			);
+			array_push($posts, $post);
+		}
+
+		return json_encode($posts);
 	}
 
 }
