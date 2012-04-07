@@ -86,7 +86,7 @@ class instagram extends plugin {
 				'metadata' => array(
 					'service' => 'instagram',
 					'handle' => $result->caption->from->username
-				),
+				)
 				'content' => array(
 					'text' => $result->caption->text,
 					'media' => array(
