@@ -1,6 +1,6 @@
 <?php
 
-require_once('plugin.plugin.php');
+require_once('plugin.parent.php');
 
 
 class twitter extends plugin {

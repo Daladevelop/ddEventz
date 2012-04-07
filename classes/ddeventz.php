@@ -4,23 +4,37 @@
 
 class DDeventz
 {
-	public static function initApp()
+	public function __construct()
 	{
-		self::generateFeed(); 
+		$this->initApp();
+	}
+
+
+	public function initApp()
+	{
+		$this->generateFeed(); 
 		
 
 	}
 
-	public static function generateFeed()
+	public function generateFeed()
 	{
 		global $parameters; 
+		$this->feed = array();
+		$this->mediaHook = array();
+
 		foreach(pluginLoader::plugins() as $plugin)
 		{
+			if(method_exists($plugin,'getHooks'))
+				array_push($this->mediaHook,$plugin->getHooks());
+
+			
 			$plugin->setParameters($parameters); 
-			echo $plugin->getFeed(); 
+			
+			array_push($this->feed, $plugin->getFeed() );
 
 		}
-
+		echo "<pre>".print_r($this->feed,true)."</pre>"; 
 	}
 
 
