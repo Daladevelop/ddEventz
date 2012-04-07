@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 
 //First time settings fo loading feed:
-global $parameters = array(
+$GLOBALS['parameters'] = array(
 	'tag' => "daladevelop",
 	'lat' => 60.6054, 
 	'lon' =>  15.6535, 
