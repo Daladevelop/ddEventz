@@ -1,0 +1,55 @@
+<?php
+require_once('lib/simplepie/simplepie.inc');
+
+class rss extends plugin{
+
+    public function __construct()
+    {   
+        $this->url="http://larsemil.se/feed/";
+
+
+    }
+
+    public function setParameters($parameters)
+    {
+
+
+    }
+
+    public function getFeed()
+    {
+        return $this->parseRSS();
+
+    }
+
+    private function parseRSS()
+	{
+		$feed = new SimplePie();
+
+		// Set which feed to process.
+		$feed->set_feed_url($this->url);
+
+		// Run SimplePie.
+		$feed->init();
+
+		// This makes sure that the content is sent to the browser as text/html and the UTF-8 character set (since we didn't change it).
+		$feed->handle_content_type();		
+		$items = array();
+		foreach ($feed->get_items() as $item):
+				array_push($items, array(
+					'title' => $item->get_title(),
+					'content' => $item->get_description(),
+					'time' => $item->get_date()
+				));
+		endforeach;
+		return json_decode($items); 
+
+
+	}
+
+
+}
+
+
+?>
+

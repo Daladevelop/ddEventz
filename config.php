@@ -4,7 +4,7 @@
 //enable error reporting
 ini_set('display_errors', 1); 
 ini_set('log_errors', 1); 
-error_reporting(E_ALL);
+error_reporting(E_ERROR);
 
 
 //First time settings fo loading feed:
@@ -24,6 +24,6 @@ require_once('classes/loadplugins.php');
 pluginLoader::all();
 
 //start things up
-DDEventz::initApp();
+$main = new DDeventz();
 
 ?>
