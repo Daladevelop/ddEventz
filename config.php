@@ -1,7 +1,7 @@
 <?php
 //CONFIG FILE FOR DDEventz!
 
-
+error_reporting(E_ALL);
 	
 
 
