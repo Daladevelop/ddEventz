@@ -16,8 +16,27 @@ class DDeventz
 
 		//for now we dont need to do anythin else then generate the feed, this will for sure change when we get further away
 		$this->generateFeed(); 
-		
+	
+	
+		if(isset($_REQUEST['callback']))
+		{
+			echo $_REQUEST['callback'];
+			echo "(";
+			echo json_encode($this->feed);
+			echo ")"; 
+		}
 
+		elseif(isset($_REQUEST['debug']))
+		{
+			echo "<pre>".print_r($this->feed,true)."</pre>"; 
+
+		}
+		
+		else
+		{
+			echo "<a href='/?callback=?'>Callback</a><br/>";
+		    echo "<a href='/?debug=1'>Debug</a><br/>"; 	
+		}
 	}
 
 	public function generateFeed()
@@ -59,7 +78,6 @@ class DDeventz
 			}
 		}
 
-		echo "<pre>".print_r($this->feed,true)."</pre>"; 
 
 	}
 

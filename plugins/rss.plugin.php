@@ -42,7 +42,7 @@ class rss extends plugin{
 									'handle' => $feed->get_title(),
 									'URI' => $item->get_permalink() 	
 								),
-					'content' => $item->get_description(),
+					'content' => htmlentities($item->get_description()),
 					'time' => $item->get_date()
 				));
 		endforeach;
