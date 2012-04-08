@@ -34,8 +34,8 @@ class DDeventz
 		
 		else
 		{
-			echo "<a href='/?callback=?'>Callback</a><br/>";
-		    echo "<a href='/?debug=1'>Debug</a><br/>"; 	
+			echo "<a href='index.php?callback=?'>Callback</a><br/>";
+		    echo "<a href='index.php?debug=1'>Debug</a><br/>"; 	
 		}
 	}
 
@@ -68,7 +68,7 @@ class DDeventz
 		for($i=0; $i <= count($this->feed); $i++)
 		{
 			//if current item is older then next item
-			if($this->feed[$i]->time < $this->feed[$i + 1]->time)
+			if((isset($this->feed[$i]->time) && isset($this->feed[$i + 1]->time)) && ($this->feed[$i]->time < $this->feed[$i + 1]->time))
 			{
 				//change order of the two
 				$temp = $this->feed[$i];
