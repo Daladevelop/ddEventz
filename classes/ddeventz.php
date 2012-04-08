@@ -26,13 +26,17 @@ class DDeventz
 			echo ")"; 
 		}
 
-		if(isset($_REQUEST['debug']))
+		elseif(isset($_REQUEST['debug']))
 		{
 			echo "<pre>".print_r($this->feed,true)."</pre>"; 
 
 		}
 		
-
+		else
+		{
+			echo "<a href='/?callback=?'>Callback</a><br/>";
+		    echo "<a href='/?debug=1'>Debug</a><br/>"; 	
+		}
 	}
 
 	public function generateFeed()
