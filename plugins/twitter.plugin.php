@@ -15,10 +15,10 @@ class twitter extends plugin {
 
 	public function setParameters($parameters) {
 		// Set the parameters for the query to twitter
-	/*	if (isset($parameters['tag'])) {
+		if (isset($parameters['tag'])) {
 			$this->tag = $parameters['tag'];
 		}
-*/
+
 		if ((isset($parameters['lat'])) && (isset($parameters['lon']))) {
 			$this->geo['lat'] = $parameters['lat'];
 			$this->geo['lon'] = $parameters['lon'];
