@@ -15,10 +15,10 @@ class twitter extends plugin {
 
 	public function setParameters($parameters) {
 		// Set the parameters for the query to twitter
-		if (isset($parameters['tag'])) {
+	/*	if (isset($parameters['tag'])) {
 			$this->tag = $parameters['tag'];
 		}
-
+*/
 		if ((isset($parameters['lat'])) && (isset($parameters['lon']))) {
 			$this->geo['lat'] = $parameters['lat'];
 			$this->geo['lon'] = $parameters['lon'];
@@ -51,6 +51,8 @@ class twitter extends plugin {
 
 		if (isset($this->tag)) { // Make a search query by tag
 			$this->query = $base_query . urlencode('#' . $this->tag);
+		} elseif ((isset($this->geo)) && (count($this->geo > 0))) {
+			$this->query = $base_query . '&' . 'geocode=' . $this->geo['lat'] . urlencode(',') . $this->geo['lon'] . urlencode (',') . $this->geo['distance'] / 1000 . 'km';
 		}
 	}
 
