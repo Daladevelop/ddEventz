@@ -16,6 +16,19 @@ class DDeventz
 
 		//for now we dont need to do anythin else then generate the feed, this will for sure change when we get further away
 		$this->generateFeed(); 
+		if(isset($_REQUEST['callback']))
+		{
+			echo $_REQUEST['callback'];
+			echo "(";
+			echo json_encode($this->feed);
+			echo ")"; 
+		}
+
+		if(isset($_REQUEST['debug']))
+		{
+			echo "<pre>".print_r($this->feed,true)."</pre>"; 
+
+		}
 		
 
 	}
@@ -59,7 +72,6 @@ class DDeventz
 			}
 		}
 
-		echo "<pre>".print_r($this->feed,true)."</pre>"; 
 
 	}
 
