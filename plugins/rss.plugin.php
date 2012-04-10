@@ -1,7 +1,8 @@
 <?php
 require_once('lib/simplepie/simplepie.inc');
+require_once('plugin.interface.php');
 
-class rss extends plugin{
+class rss implements pluginInterface{
 
     public function __construct()
     {   

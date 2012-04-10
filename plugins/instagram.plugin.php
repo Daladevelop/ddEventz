@@ -1,7 +1,7 @@
 <?php
-require_once('plugin.parent.php');
+require_once('plugin.interface.php');
 
-class instagram extends plugin {
+class instagram implements pluginInterface {
 
 	private $endpoints = array(
 		'tag' => 'https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s',

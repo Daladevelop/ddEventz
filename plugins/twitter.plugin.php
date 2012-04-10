@@ -1,9 +1,9 @@
 <?php
 
-require_once('plugin.parent.php');
+require_once('plugin.interface.php');
 
 
-class twitter extends plugin {
+class twitter implements pluginInterface {
 
 	private $geo = array();
 	private $tag, $query;
