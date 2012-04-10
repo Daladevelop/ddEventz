@@ -11,11 +11,19 @@ class pluginLoader
 		{
 			//require them
 			require_once($plugin);
-			
+
+			//get the plugin name from the plugin path
 			$plugin = substr($plugin, 0, -11);
 			$plugin = substr($plugin, 8); 
 
-			array_push(self::$plugins,new $plugin);
+			//create new object from plugin class
+			$temp = new $plugin;
+			
+			//check that current plugin is infact using our pluginInterface! 
+			if($temp instanceof pluginInterface)
+			{
+				array_push(self::$plugins,$temp);
+			}
 			
 
 
