@@ -65,7 +65,7 @@ class DDeventz
 			}			
 		}
 
-        //try to sort this...
+        //Sort the feed 2.0 :) 
         usort($this->feed, function($a,$b){
             if($a->time == $b->time)
                 return 0;
