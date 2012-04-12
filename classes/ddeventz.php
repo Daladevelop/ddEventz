@@ -64,19 +64,18 @@ class DDeventz
 				array_push($this->feed, $item);
 			}			
 		}
-		//lets sort all entries
-		for($i=0; $i <= count($this->feed); $i++)
-		{
-			//if current item is older then next item
-			if((isset($this->feed[$i]->time) && isset($this->feed[$i + 1]->time)) && ($this->feed[$i]->time < $this->feed[$i + 1]->time))
-			{
-				//change order of the two
-				$temp = $this->feed[$i];
-				$this->feed[$i] = $this->feed[$i+1];
-				$this->feed[$i+1] = $temp; 
-				$i = 0; 
-			}
-		}
+
+        //try to sort this...
+        usort($this->feed, function($a,$b){
+            if($a->time == $b->time)
+                return 0;
+            elseif($a->time > $b->time)
+                return -1;
+            elseif($a->time < $b->time)
+                return 1; 
+
+
+        });
 
 
 	}
