@@ -5,7 +5,7 @@ interface pluginInterface
 {
 	public function __construct();
 
-	public function setParameters($parameters); 
+	public function setParameters(array $parameters); 
 
 	public function getFeed(); 	
 

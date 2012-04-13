@@ -22,7 +22,7 @@ class instagram implements pluginInterface {
 		return true;
 	}
 
-	public function setParameters($paramters) {
+	public function setParameters(array $paramters) {
 		$this->parameters = $paramters;
 
 		// set correct endpoint url and query

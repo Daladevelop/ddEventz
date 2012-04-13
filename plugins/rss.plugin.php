@@ -10,7 +10,7 @@ class rss implements pluginInterface{
 
     }
 
-    public function setParameters($parameters)
+    public function setParameters(array $parameters)
     {
 		//we get some parameters, but as RSS i dont think we need them do we? 
 
@@ -44,7 +44,7 @@ class rss implements pluginInterface{
 									'URI' => $item->get_permalink() 	
 								),
 					'content' => htmlentities($item->get_description()),
-					'time' => $item->get_date()
+					'time' => date("U",$item->get_date())
 				));
 		endforeach;
 		return json_encode($items); 

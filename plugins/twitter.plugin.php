@@ -13,7 +13,7 @@ class twitter implements pluginInterface {
 
 	}
 
-	public function setParameters($parameters) {
+	public function setParameters(array $parameters) {
 		// Set the parameters for the query to twitter
 		if (isset($parameters['tag'])) {
 			$this->tag = $parameters['tag'];
