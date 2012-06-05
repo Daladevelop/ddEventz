@@ -17,6 +17,9 @@ $GLOBALS['parameters'] = array(
 //All config settings are done, lets do this!
 
 //load all requirements
+require_once('classes/logger.class.php'); 
+logger::init(); 
+
 require_once('classes/ddeventz.php');
 require_once('classes/loadplugins.php');
 
@@ -26,4 +29,7 @@ pluginLoader::all();
 //start things up
 $main = new DDeventz();
 
+
+//shut things down
+logger::shutDown(); 
 ?>
