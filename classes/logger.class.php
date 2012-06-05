@@ -35,6 +35,8 @@ class logger{
 
     public static function log($level, $msg)
     {
+
+        $logLevels = array("NONE","FATAL","DEBUG","ALL");
         //only log if loglevel is set to something else then NONE
         if(self::$logLevel)
         {
@@ -43,7 +45,7 @@ class logger{
             if($level <= self::$logLevel)
             {
                 //log the entry
-                fwrite( self::$logFileHandler, date("Y-m-d H:i:s")." LOGLEVEL:".$level." ".$msg."\r\n");
+                fwrite( self::$logFileHandler, date("Y-m-d H:i:s")." LOGLEVEL: ".$logLevels[$level]."\t ".$msg."\r\n");
 
 
             }
