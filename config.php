@@ -20,8 +20,17 @@ $GLOBALS['parameters'] = array(
 require_once('classes/logger.class.php'); 
 logger::init(); 
 
+//load the databasehandler and our db class
+require_once('classes/db.class.php');
+
+
 require_once('classes/ddeventz.php');
 require_once('classes/loadplugins.php');
+
+
+//do some databasechecking
+//
+db::init(); 
 
 //Load all social plugins
 pluginLoader::all();

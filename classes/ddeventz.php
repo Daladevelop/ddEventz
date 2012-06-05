@@ -50,10 +50,6 @@ class DDeventz
 		//iterate through all plugins
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			//check if there are any hooks for any special media type, and if there are, add them to our array of hooks
-			if(method_exists($plugin,'getHooks'))
-				array_push($this->mediaHook,$plugin->getHooks());
-
 			//throw our parameters to the plugin
 			$plugin->setParameters($parameters); 
 

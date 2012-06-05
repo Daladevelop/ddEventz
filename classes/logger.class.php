@@ -19,7 +19,7 @@ class logger{
 
     static $logfile = "log.txt";
 
-    //what level to log, in production it should be set to fatal
+    //what level to log, in production it should be set to fatal, in development it can be either DEBUG or ALL. ALl will give some more metadata that can be useful.
     static $logLevel = ALL;
 
     //filehandler to use 
@@ -29,13 +29,13 @@ class logger{
     {
         self::$logFileHandler = fopen(self::$logfile,"a");
 
-        self::log(ALL,"Starting up logger"); 
+        self::log(ALL,"\r\n\r\nStarting up logger"); 
 
     }
 
     public static function log($level, $msg)
     {
-        //only log if loglevel is set to something else then LOG
+        //only log if loglevel is set to something else then NONE
         if(self::$logLevel)
         {
         
