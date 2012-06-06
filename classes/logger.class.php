@@ -27,9 +27,12 @@ class logger{
 
     public static function init()
     {
-        self::$logFileHandler = fopen(self::$logfile,"a");
-
-        self::log(ALL,"\r\n\r\nStarting up logger"); 
+		if(self::$logFileHandler = fopen(self::$logfile,"a"))
+			self::log(ALL,"\r\n\r\nStarting up logger"); 
+		else
+		{
+			echo "Could not start logger. Check permissions. "; 
+		}
 
     }
 

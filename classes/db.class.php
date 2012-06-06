@@ -11,7 +11,7 @@ class DB
     {
         $hostname = "localhost"; 
         $username = "root";
-        $password = "localhost"; 
+        $password = "emd25y!"; 
 
         try{
 
@@ -21,12 +21,15 @@ class DB
     catch(PDOException $e)
     {
 
-        logger::log(FATAL,$e->getMessage()); 
+		logger::log(FATAL,$e->getMessage()); 
+		return false; 
     }
 
      //check tables
         
-        self::checkTables();
+		return self::checkTables();
+			
+
 
     }
 
@@ -63,10 +66,12 @@ class DB
         $errorCodes = array("OK", "COULD NOT CREATE TABLE", "FATAL"); 
         if($errorCode)
         {
-            logger::log(DEBUG,"Table check ended with errorcode: $errorCode - ".$errorCodes[$errorCode]); 
+			logger::log(DEBUG,"Table check ended with errorcode: $errorCode - ".$errorCodes[$errorCode]); 
+			return false; 
         }
         else
-             logger::log(DEBUG,"All tables needed where found"); 
+			logger::log(DEBUG,"All tables needed where found"); 
+
     }
 
     public static function addTable($table)
