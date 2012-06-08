@@ -14,48 +14,73 @@ class DDeventz
 	public function initApp()
 	{
 
-		//for now we dont need to do anythin else then generate the feed, this will for sure change when we get further away
-		$this->generateFeed(); 
-	
-	
-		if(isset($_REQUEST['callback']))
-		{
-			echo $_REQUEST['callback'];
-			echo "(";
-			echo json_encode($this->feed);
-			echo ")"; 
-		}
+        //for now we dont need to do anythin else then generate the feed, this will for sure change when we get further away
+        //
 
-		elseif(isset($_REQUEST['debug']))
-		{
-			echo "<pre>".print_r($this->feed,true)."</pre>"; 
+        if(isset($_REQUEST['eventId']))
+        {
+            $this->generateFeed($_REQUEST['eventId']); 
 
-		}
-		
-		else
-		{
-			echo "<a href='index.php?callback=?'>Callback</a><br/>";
-		    echo "<a href='index.php?debug=1'>Debug</a><br/>"; 	
-		}
-	}
 
-	public function generateFeed()
+            if(isset($_REQUEST['callback']))
+            {
+                logger::log(DEBUG,"jsonp callback found. Serving feed as jsonp"); 
+                echo $_REQUEST['callback'];
+                echo "(";
+                echo json_encode($this->feed);
+                echo ")"; 
+            }
+
+            elseif(isset($_REQUEST['debug']))
+            {
+                logger::log(DEBUG,"Debug mode. Serving as nice array");
+                echo "<pre>".print_r($this->feed,true)."</pre>"; 
+
+            }
+
+            else
+            {
+                echo "<a href='index.php?callback=?'>Callback</a><br/>";
+                echo "<a href='index.php?debug=1'>Debug</a><br/>"; 	
+            }
+        }
+        else
+            logger::log(DEBUG,"App loaded without eventId. Halting"); 
+    }
+
+
+	public function generateFeed($eventId)
 	{
 
 
-		global $parameters; 
 		$this->feed = array();
 		$this->mediaHook = array();
 
 		//iterate through all plugins
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			//throw our parameters to the plugin
+            //get the parameters for the plugin from the db
+            $sql = "select parm,value from events_plugins where eventId =$eventId and plugin='".get_class($plugin)."'";
+
+//            logger::log(DEBUG,$sql); 
+            $parameters = array();  
+
+            //have it the correct way in an array. key => value. 
+            foreach(DB::$dbh->query($sql) as $parm)
+            {
+                $parameters[$parm['parm']] = $parm['value'];
+                
+
+            }
+
 			$plugin->setParameters($parameters); 
 
 			//get the feed from the plugin
-			$newItems = json_decode($plugin->getFeed());
-			foreach($newItems as $item)
+            $newItems = json_decode($plugin->getFeed());
+            logger::log(DEBUG, "Getting the feed-items from ".get_class($plugin)); 
+
+            //loop through the items
+            foreach($newItems as $item)
 			{
 				array_push($this->feed, $item);
 			}			
