@@ -7,6 +7,8 @@ interface pluginInterface
 
 	public function setParameters(array $parameters); 
 
-	public function getFeed(); 	
+	public function getFeed(); 
+    
+    public function admin(); 	
 
 }
