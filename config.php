@@ -29,15 +29,17 @@ require_once('classes/loadplugins.php');
 
 
 //do some databasechecking
-//
-db::init(); 
+
+//if we dont have databaseconnection - dont connect
+if(!db::init())
+{
+	logger::log(FATAL,"For some reason the databaseconnection is not working. Starting shutdown process. "); 
+	logger::shutDown();
+	die(); 
+}
 
 //Load all social plugins
 pluginLoader::all();
-
-//start things up
-$main = new DDeventz();
-
 
 //shut things down
 logger::shutDown(); 

@@ -16,6 +16,10 @@ class rss implements pluginInterface{
 
     }
 
+	public function admin()
+	{
+		echo "YEP"; 
+	}
     public function getFeed()
     {
         return $this->parseRSS();

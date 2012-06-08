@@ -13,6 +13,10 @@ class twitter implements pluginInterface {
 
 	}
 
+	public function admin()
+	{
+		echo "ADMINPAGE FOR TWITTERPLUGINS! Japp Japp!"; 
+	}
 	public function setParameters(array $parameters) {
 		// Set the parameters for the query to twitter
 		if (isset($parameters['tag'])) {

@@ -69,8 +69,11 @@ class DB
 			logger::log(DEBUG,"Table check ended with errorcode: $errorCode - ".$errorCodes[$errorCode]); 
 			return false; 
         }
-        else
+		else
+		{
 			logger::log(DEBUG,"All tables needed where found"); 
+			return true;
+		}
 
     }
 

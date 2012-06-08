@@ -22,6 +22,10 @@ class instagram implements pluginInterface {
 		return true;
 	}
 
+	public function admin()
+	{
+		echo "YEP"; 
+	}
 	public function setParameters(array $paramters) {
 		$this->parameters = $paramters;
 
