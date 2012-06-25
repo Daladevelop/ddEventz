@@ -11,7 +11,7 @@ class DB
     {
         $hostname = "localhost"; 
         $username = "root";
-        $password = "emd25y!"; 
+        $password = "tjipp"; 
 
         try{
 
