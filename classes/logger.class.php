@@ -27,9 +27,12 @@ class logger{
 
     public static function init()
     {
-        self::$logFileHandler = fopen(self::$logfile,"a");
-
-        self::log(ALL,"\r\n\r\nStarting up logger"); 
+		if(self::log(ALL,"\r\n\r\nStarting up logger"))
+			return true;
+		else
+		{
+			echo "Could not start logger. Check permissions. "; 
+		}
 
     }
 
@@ -45,7 +48,8 @@ class logger{
             if($level <= self::$logLevel)
             {
                 //log the entry
-                fwrite( self::$logFileHandler, date("Y-m-d H:i:s")." LOGLEVEL: ".$logLevels[$level]."\t ".$msg."\r\n");
+				if(file_put_contents(self::$logfile, date("Y-m-d H:i:s")." LOGLEVEL: ".$logLevels[$level]."\t ".$msg."\r\n",FILE_APPEND))
+					return true; 
 
 
             }
@@ -62,7 +66,6 @@ class logger{
     public static function shutDown()
     {
         self::log(ALL, "Ending logging session. Have a nice day. ");
-        fclose(self::$logFileHandler); 
     }
 }
 
