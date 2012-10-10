@@ -2,3 +2,5 @@
 *.swp
 *.DS_Store
 plugins/scratch
+settings.php
+log.txt
