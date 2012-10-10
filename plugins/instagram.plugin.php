@@ -5,8 +5,8 @@ class instagram implements pluginInterface {
 
 	private $endpoints = array(
 		'tag' => 'https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s',
-		'location' => 'https://api.instagram.com/v1/media/search?lat=%s&lng=%s&distance=%s&client_id=%s'
-		'user' => =>'https/api.instagram.com/v1/users/%s/media/recent?client_id=%s';
+		'location' => 'https://api.instagram.com/v1/media/search?lat=%s&lng=%s&distance=%s&client_id=%s',
+		'user' => 'https://api.instagram.com/v1/users/3/%s/media/recent/?client_id=%s'
 	);
 
 	private $query = '';
@@ -31,12 +31,12 @@ class instagram implements pluginInterface {
 		$this->parameters = $paramters;
 
 		// set correct endpoint url and query
-		if($this->parameters['tag']) {
+		if(isset($this->parameters['tag'])) {
 			$this->setEndpoint('tag');
-		} elseif($this->parameters['lat'] && $this->parameters['lon']) {
+		} elseif(isset($this->parameters['lat']) && isset($this->parameters['lon'])) {
 			$this->setEndpoint('location');
-		} elseif($this->parameters['user']) {
-			$this->setEndpoint['user'];
+		} elseif(isset($this->parameters['user'])) {
+			$this->setEndpoint('user');
 		}
 
 		
@@ -65,6 +65,7 @@ class instagram implements pluginInterface {
 				break;
 			case 'user':
 				$endpointUrl = sprintf($this->endpoints[$name], $this->parameters['user'],$this->config['client_id']);
+				break; 
 		}
 
 		$this->query = $endpointUrl;

@@ -79,6 +79,8 @@ class DDeventz
             $newItems = json_decode($plugin->getFeed());
             logger::log(DEBUG, "Getting the feed-items from ".get_class($plugin)); 
 
+			if(!is_array($newItems))
+				die("Hittade inga feeds"); 
             //loop through the items
             foreach($newItems as $item)
 			{
