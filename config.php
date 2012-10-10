@@ -20,6 +20,9 @@ $GLOBALS['parameters'] = array(
 require_once('classes/logger.class.php'); 
 logger::init(); 
 
+// load the settings
+require_once('settings.php');
+
 //load the databasehandler and our db class
 require_once('classes/db.class.php');
 

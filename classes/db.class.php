@@ -9,9 +9,14 @@ class DB
 
     public static function init()
     {
-        $hostname = "localhost"; 
+        $hostname = DBHOST;
+		$username = DBUSER;
+		$password = DBPASSWORD;
+		
+		/*$hostname = "localhost"; 
         $username = "root";
         $password = "tjipp"; 
+		*/
 
         try{
 
