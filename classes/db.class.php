@@ -47,7 +47,7 @@ class DB
         $tables = array("events","events_plugins","events_users");
 
 
-        $errorcode = 0; 
+        $errorCode = 0; 
 
         //check each table if it exists
         foreach($tables as $table)

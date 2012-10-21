@@ -6,10 +6,10 @@
  * if logLevel is set to NONE, it will not log any entries, if its set to FATAL it will only log FATAL entries, if its set to DEBUG it will SHOW warnings, and FATAL entries and if its set to ALL it will show ALL entries what so ever
  */
 
-define(NONE,0);
-define(FATAL, 1);
-define(DEBUG, 2);
-define(ALL, 3);
+define("NONE",0);
+define("FATAL", 1);
+define("DEBUG", 2);
+define("ALL", 3);
 
 
 

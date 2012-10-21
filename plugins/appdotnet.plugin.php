@@ -67,6 +67,11 @@ class appdotnet implements pluginInterface {
 		$r = json_decode($r);
 		$posts = array();
 
+		if(!is_array($r))
+		{
+			return false; 
+		}
+
 		foreach ($r as $dot) { // What the hell do we call posts on app.net? Someone suggesten 'dot'. I'm gonna go with that
 			$post = array (
 				'id' => $dot->id,

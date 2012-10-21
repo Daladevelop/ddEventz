@@ -55,7 +55,7 @@ class twitter implements pluginInterface {
 
 		if (isset($this->tag)) { // Make a search query by tag
 			$this->query = $base_query . urlencode('#' . $this->tag);
-		} elseif ((isset($this->geo)) && (count($this->geo > 0))) {
+		} elseif ((isset($this->geo)) && (count($this->geo) >2 )) {
 			$this->query = $base_query . '&' . 'geocode=' . $this->geo['lat'] . urlencode(',') . $this->geo['lon'] . urlencode (',') . $this->geo['distance'] / 1000 . 'km';
 		}
 	}
@@ -80,6 +80,8 @@ class twitter implements pluginInterface {
 		//$r = $r->result;
 		$posts = array();
 		//print_r($r->results);
+		if(!is_array($r))
+			return false; 
 
 		foreach ($r->results as $tweet) {
 			$post = array (

@@ -6,7 +6,7 @@ class instagram implements pluginInterface {
 	private $endpoints = array(
 		'tag' => 'https://api.instagram.com/v1/tags/%s/media/recent?client_id=%s',
 		'location' => 'https://api.instagram.com/v1/media/search?lat=%s&lng=%s&distance=%s&client_id=%s',
-		'user' => 'https://api.instagram.com/v1/users/3/%s/media/recent/?client_id=%s'
+		'user' => 'https://api.instagram.com/v1/users/%s/media/recent/?access_token=%s'
 	);
 
 	private $query = '';
@@ -53,6 +53,8 @@ class instagram implements pluginInterface {
 	// set correct endpoint url and query
 	public function setEndpoint($name) {
 		$endpointUrl = '';
+		$this->endpoint = $name;
+	    logger::log(DEBUG, "Setting INSTAGRAM endpoint to ".$this->endpoint); 	
 
 		// Setup correct endpoint
 		switch ($name) {
@@ -64,7 +66,7 @@ class instagram implements pluginInterface {
 				$endpointUrl = sprintf($this->endpoints[$name], $this->parameters['lat'], $this->parameters['lon'], $this->config['distance'], $this->parameters['client_id']);
 				break;
 			case 'user':
-				$endpointUrl = sprintf($this->endpoints[$name], $this->parameters['user'],$this->config['client_id']);
+				$endpointUrl = sprintf($this->endpoints[$name], $this->getUserID($this->endpoints['user']),InstagramAccessToken);
 				break; 
 		}
 
@@ -73,8 +75,15 @@ class instagram implements pluginInterface {
 		return true;
 	}
 
+	private function getUserID($username)
+	{
+		return 6891333; 
+
+	}
 	private function requestData() {
 		if($this->query !== '') {
+			logger::log(DEBUG, "INSTAGRAM QUERY: ".$this->query); 
+
 			$handle = fopen($this->query, 'r');
 			$content = stream_get_contents($handle);
 			fclose($handle);
@@ -91,6 +100,10 @@ class instagram implements pluginInterface {
 	private function parseAPIResponse($r) {
 		$r = json_decode($r);
 		$posts = array();
+
+		if(!is_object($r))
+			return false; 
+
 
 		foreach ($r->data as $result) {
 			$post = array (
@@ -115,7 +128,6 @@ class instagram implements pluginInterface {
 
 			array_push($posts, $post);
 		}
-
 		return json_encode($posts);
 	}
 

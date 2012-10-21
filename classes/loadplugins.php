@@ -4,7 +4,7 @@ class pluginLoader
 {
 	private static $plugins = array(); 
 
-	public function all()
+	static public function all()
 	{
 		//Load all classes
 		foreach( glob("plugins/*.plugin.php") as $plugin)
@@ -40,7 +40,7 @@ class pluginLoader
 
 	}
 
-	public function plugins()
+	static public function plugins()
 	{
 		return self::$plugins; 
 

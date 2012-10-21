@@ -4,8 +4,8 @@
 //enable error reporting
 ini_set('display_errors', 1); 
 ini_set('log_errors', 1); 
-//error_reporting(E_ALL);
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_PARSE);
+error_reporting(E_ALL);
+//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_PARSE);
 
 //First time settings fo loading feed:
 $GLOBALS['parameters'] = array(
