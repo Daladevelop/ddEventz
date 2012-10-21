@@ -47,43 +47,57 @@ class appdotnet implements pluginInterface {
 	 * Request the tweets from the twitter api
 	 */
 	private function requestData() {
-		// Set up cURL 
-		$curl = curl_init($this->query); 
-		curl_setopt($curl, CURLOPT_POST, false); 
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt ($curl, CURLOPT_SSL_VERIFYHOST, false);
-		
-		// Necessary in order for cURL to work with https(?)
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
-		$response = curl_exec($curl);
-		curl_close($curl);
+		// Check to see if cURL is installed
+		if (function_exists('curl_init')) {
+			// Set up cURL 
+			$curl = curl_init($this->query); 
+			curl_setopt($curl, CURLOPT_POST, false); 
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt ($curl, CURLOPT_SSL_VERIFYHOST, false);
 			
-		return $response;
+			// Necessary in order for cURL to work with https(?)
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+			
+			return $response;
+		} else {
+			// Log the fact that cURL isn't installed
+			logger::log(ALL, 'Failed to find function \'curl_init\'. This will prevent plugin' . $plugin . 'from working.');
+			return false;
+		}
 	}
 
 	// Parse the result from twitters API
 	private function parseAPIResponse($r) {
 		$r = json_decode($r);
+		$r = $r->data;
+
 		$posts = array();
 
-		foreach ($r as $dot) { // What the hell do we call posts on app.net? Someone suggesten 'dot'. I'm gonna go with that
-			$post = array (
-				'id' => $dot->id,
-				'metadata' => array(
-					'service' => 'app.net',
-					'handle' => $dot->user->name,
-					'profile_url' => 'http://alpha.app.net/' . $dot->user->username
-				),
-				'content' => array(
-					'text' => $dot->text
-				),
-				'time' => strtotime($dot->created_at)
-			);
-			array_push($posts, $post);
+		if (!is_array($r)) {
+			return false;	
+		} else {
+			foreach ($r as $dot) { // What the hell do we call posts on app.net? Someone suggesten 'dot'. I'm gonna go with that
+				$post = array (
+					'id' => $dot->id,
+					'metadata' => array(
+						'service' => 'app.net',
+						'handle' => $dot->user->name,
+						'profile_url' => 'http://alpha.app.net/' . $dot->user->username
+					),
+					'content' => array(
+						'text' => $dot->text
+					),
+					'time' => strtotime($dot->created_at)
+				);
+				array_push($posts, $post);
+			}
+
+			return json_encode($posts);
 		}
 
-		return json_encode($posts);
 	}
 
 }
