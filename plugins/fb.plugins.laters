@@ -1,0 +1,42 @@
+<?php
+require_once('plugin.interface.php'); 
+require_once('lib/php-sdk/src/facebook.php');
+
+class fb implements pluginInterface {
+
+    public function __construct()
+    {   
+        $config = array();
+        $config['appId'] = 266971006730643;
+        $config['secret'] = '7c06b5b42baa1438f6edc7ec401790b8';
+
+		$this->fbConnection = new Facebook($config);
+		$this->accessToken = $this->fbConnection->getAccessToken();
+
+    }   
+
+    public function setParameters(array $parameters)
+    {   
+		$this->parameters = $parameters; 
+
+    }   
+
+
+    public function getFeed()
+    {   
+		//		$url = 'https://graph.facebook.com/search?type=location&center='.$this->parameters['lat'].','.$this->parameters['lon'].'&distance=5000';
+		$fql = "select id, page_id from location_post where distance(latitude,longitude, '".$this->parameters['lat']."','".$this->parameters['lon']."') > 10000";
+		$param = array(
+			'method' => 'fql.query',
+			'query' => $fql,
+			'callback' => '');
+		$result = $this->fbConnection->api($param); 
+		foreach($result as $row)
+		{
+			echo "<pre>".print_r($row,true)."</pre>"; 
+		}
+
+    }   
+
+}   
+?>

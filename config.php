@@ -14,6 +14,8 @@ $GLOBALS['parameters'] = array(
 	'lon' =>  15.6535, 
 	'distance' => 5000);
 
+date_default_timezone_set('UTC');
+
 //All config settings are done, lets do this!
 
 //load all requirements

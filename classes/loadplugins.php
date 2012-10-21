@@ -16,6 +16,10 @@ class pluginLoader
 			//get the plugin name from the plugin path
 			$plugin = substr($plugin, 0, -11);
 			$plugin = substr($plugin, 8); 
+			
+			//if its the main plugin jump on to next plug! 
+			if($plugin === 'main')
+				continue; 
 
 			//create new object from plugin class
 			$temp = new $plugin;

@@ -18,7 +18,9 @@ class DDeventz
         //
 
         if(isset($_REQUEST['eventId']))
-        {
+		{
+			$this->eventID = $_REQUEST['eventId']; 
+
             $this->generateFeed($_REQUEST['eventId']); 
 
 
@@ -46,7 +48,12 @@ class DDeventz
         }
         else
             logger::log(DEBUG,"App loaded without eventId. Halting"); 
-    }
+	}
+
+	public static function getEventID()
+	{
+		return $this->eventID; 
+	}
 
 
 	public function generateFeed($eventId)

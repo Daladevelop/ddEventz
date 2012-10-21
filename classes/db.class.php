@@ -44,7 +44,7 @@ class DB
         logger::log(ALL,"Checking if tables exist"); 
 
         //array with all tables needed for the app. 
-        $tables = array("events","events_plugins");
+        $tables = array("events","events_plugins","events_users");
 
 
         $errorcode = 0; 
@@ -112,8 +112,19 @@ class DB
 
 
                 break;
-
-            default:
+			case("events_users"):
+				$sql ="CREATE TABLE IF NOT EXISTS `events_users` (
+					  `id` int(11) NOT NULL AUTO_INCREMENT,
+					  `username` varchar(100) NOT NULL,
+					  `password` varchar(100) NOT NULL,
+					  `email` varchar(100) NOT NULL,
+					  `createddate` datetime NOT NULL,
+						  PRIMARY KEY (`id`),
+						  UNIQUE KEY `username` (`username`)
+						) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+				break;
+ 
+			default:
                 logger::log(DEBUG,"Dont know how to create table $table");
                 return 1;
                 break; 
