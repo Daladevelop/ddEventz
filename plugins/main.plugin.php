@@ -2,33 +2,90 @@
 
 class ddPlugin
 {
-
-	public function cache($jsonObj)
+	public function __construct($eventId)
 	{
+	
 		//cachefolder	
 		$this->cacheFolder = "cache/";
 
 		//set some per plugin stuff
-		$curPlugin =  get_class($this); 
-		logger::log(DEBUG, "Cachfunction initialized for ".$curPlugin);
+		$this->curPlugin =  get_class($this); 
+
+		logger::log(DEBUG, "Cachfunction initialized for ".$this->curPlugin);
 
 		//get which event this is
-		$curEvent = DDeventz::getEventID();
+		$this->curEvent = $eventId;
 
-
-		$filename = $this->cacheFolder.$curEvent.".".$curPlugin.".cache";
-			
-		if(!file_exists($filename))
-		{
-			touch($filename);
-			logger::log(DEBUG, "No cache file. Trying to create: ".$filename); 
-		
-		}
-			$fp = fopen($filename, 'r+');
-
+		$this->filename = $this->cacheFolder.$this->curEvent.".".$this->curPlugin.".cache";
+		logger::log(DEBUG, "CACHE: Setting cache file to: ".$this->filename); 
 	}
 
 
+	public function getFeed() {
+		$response = false;
+		$response = $this->getCache();
+
+		if(!$response)
+		{
+			$response = $this->requestData();
+			$this->cache($response); 
+
+		}
+		return $response; 
+
+
+	}
+
+	public function cache($jsonObj)
+	{
+
+
+			
+		if(!file_exists($this->filename))
+		{
+			touch($this->filename);
+			logger::log(DEBUG, "No cache file. Trying to create: ".$this->filename); 
+		
+		}
+		
+		$fp = fopen($this->filename, 'w');
+		if($fp)
+		{
+			fwrite($fp, time()."\n");
+			fwrite($fp,$jsonObj);
+
+			fclose($fp); 
+		}
+		else
+			logger::log(DEBUG,'CACHE - could not open file:'. $this->filename);
+
+	}
+
+	public function getCache()
+	{
+
+		if(file_exists($this->filename))
+		{
+			$fp = fopen($this->filename,'r');
+			$timestamp = fgets($fp);
+			if( (time() - $timestamp) > 600) // tio minuter
+			{
+				logger::log(DEBUG, "CACHE - Cache not fresh enough. Requesting new data. ".$this-_>curPlugin);
+				$this->cache($this->requestData()); 
+				return false;
+			}
+			else
+			{
+				$content = fgets($fp);
+				fclose($fp);
+				return $content; 
+			}
+
+		}
+		else
+			return false; 
+
+	}	
 
 
 }

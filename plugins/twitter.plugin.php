@@ -3,14 +3,14 @@
 require_once('plugin.interface.php');
 
 
-class twitter implements pluginInterface {
+class twitter extends ddPlugin implements pluginInterface {
 
 	private $geo = array();
 	private $tag, $query;
 
-	public function __construct() {
+	public function __construct($eventId) {
 		$this->service = 'twitter';	
-
+		parent::__construct($eventId); 
 	}
 
 	public function admin()
@@ -34,17 +34,10 @@ class twitter implements pluginInterface {
 				$this->geo['distance'] = '5000'; // 5 km
 			}
 		}
-
-	}
-
-	public function getFeed() {
 		$this->makeTwitterQuery();
-		
-		$response = $this->requestData();
-		//$response = json_decode($response);
-		//$response = json_encode($response->results);
-		return $this->parseAPIResponse($response);
+
 	}
+
 	
 
 	// twitter class specific methods is below here
@@ -63,7 +56,7 @@ class twitter implements pluginInterface {
 	/**
 	 * Request the tweets from the twitter api
 	 */
-	private function requestData() {
+	public function requestData() {
 		// Set up cURL 
 		$curl = curl_init($this->query); 
 		curl_setopt($curl, CURLOPT_POST, false); 
@@ -71,7 +64,7 @@ class twitter implements pluginInterface {
 		$response = curl_exec($curl);
 		curl_close($curl);
 			
-		return $response;
+		return $this->parseAPIResponse($response);
 	}
 
 	// Parse the result from twitters API

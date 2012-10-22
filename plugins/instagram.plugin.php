@@ -18,9 +18,9 @@ class instagram extends ddPlugin implements pluginInterface {
 			'client_id' => '3b2a4b4860bb4899b0405b7bd3cb4be0'
 		);
 
-	public function __construct () {
+	public function __construct ($eventId) {
 		$this->service = 'instagram';
-		return true;
+		parent::__construct($eventId); 
 	}
 
 	public function admin()
@@ -44,11 +44,6 @@ class instagram extends ddPlugin implements pluginInterface {
 		return true;
 	}
 
-	public function getFeed() {
-		$response = $this->requestData();
-		$this->cache($response); 
-		return $response;
-	}
 
 	// set correct endpoint url and query
 	public function setEndpoint($name) {
@@ -80,7 +75,7 @@ class instagram extends ddPlugin implements pluginInterface {
 		return 6891333; 
 
 	}
-	private function requestData() {
+	public function requestData() {
 		if($this->query !== '') {
 			logger::log(DEBUG, "INSTAGRAM QUERY: ".$this->query); 
 

@@ -8,6 +8,7 @@ class DDeventz
 
 	public function __construct()
 	{
+
 		// init the application
 		$this->initApp();
 
@@ -22,8 +23,6 @@ class DDeventz
 
         if(isset($_REQUEST['eventId']))
 		{
-			self::$eventId = $_REQUEST['eventId']; 
-
             $this->generateFeed($_REQUEST['eventId']); 
 
 
@@ -53,10 +52,6 @@ class DDeventz
             logger::log(DEBUG,"App loaded without eventId. Halting"); 
 	}
 
-	public static function getEventID()
-	{
-		return self::$eventId; 
-	}
 
 
 	public function generateFeed($eventId)

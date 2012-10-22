@@ -22,7 +22,7 @@ class pluginLoader
 				continue; 
 
 			//create new object from plugin class
-			$temp = new $plugin;
+			$temp = new $plugin($_REQUEST['eventId']);
 			
 			//check that current plugin is infact using our pluginInterface! 
 			if($temp instanceof pluginInterface)
