@@ -76,7 +76,13 @@ class ddPlugin
 
 		}
 		else
-			return $this->cache($this->requestData() ); 
+		{
+			$content = $this->requestData();
+			$this->cache($content);
+
+			return $content; 
+
+		}
 
 	}	
 
