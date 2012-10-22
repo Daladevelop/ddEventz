@@ -19,6 +19,7 @@ require_once('config.php');
 
 class adminInterface
 {
+
 	public function __construct()
 	{
 		
@@ -68,6 +69,14 @@ class adminInterface
 			echo '<a href="">'.get_class($plugin).'</a><br/>'; 
 		}
 	}
+
+	public function listAllPlugins() {
+		foreach (glob("plugins/*.plugin.php") as $plugin) {
+			$plugins = array();
+			array_push($plugins, $plugin);	
+		}
+		return $plugins;
+	} 
 }
 
 $admin = new adminInterface(); 
