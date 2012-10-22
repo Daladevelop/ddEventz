@@ -31,7 +31,7 @@ require_once('classes/db.class.php');
 
 require_once('classes/ddeventz.php');
 require_once('classes/loadplugins.php');
-
+require_once('plugins/main.plugin.php'); 
 
 //do some databasechecking
 
