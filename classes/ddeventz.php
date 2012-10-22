@@ -4,10 +4,13 @@
 
 class DDeventz
 {
+	public static $eventId;
+
 	public function __construct()
 	{
 		// init the application
 		$this->initApp();
+
 	}
 
 
@@ -19,7 +22,7 @@ class DDeventz
 
         if(isset($_REQUEST['eventId']))
 		{
-			$this->eventID = $_REQUEST['eventId']; 
+			self::$eventId = $_REQUEST['eventId']; 
 
             $this->generateFeed($_REQUEST['eventId']); 
 
@@ -52,7 +55,7 @@ class DDeventz
 
 	public static function getEventID()
 	{
-		return $this->eventID; 
+		return self::$eventId; 
 	}
 
 
