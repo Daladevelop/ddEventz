@@ -61,7 +61,9 @@ class ddPlugin
 		{
 			$fp = fopen($this->filename,'r');
 			$timestamp = fgets($fp);
-			if( (time() - $timestamp) > 600) // tio minuter
+			if(!defined("CACHETIME"))
+				define("CACHETIME",600); //can be set in settings.php
+			if( (time() - $timestamp) > CACHETIME) // tio minuter
 			{
 				logger::log(DEBUG, "CACHE - Cache not fresh enough. Requesting new data. ".$this->curPlugin);
 				$this->cache($this->requestData()); 

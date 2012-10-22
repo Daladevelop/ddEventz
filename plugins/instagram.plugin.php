@@ -92,7 +92,7 @@ class instagram extends ddPlugin implements pluginInterface {
 
 
 	// Parse the result from instagram's API
-	private function parseAPIResponse($r) {
+	public function parseAPIResponse($r) {
 		$r = json_decode($r);
 		$posts = array();
 
