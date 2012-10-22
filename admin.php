@@ -58,16 +58,27 @@ class adminInterface
 
 	public function eventPicker()
 	{
-		echo "New or old"; 
+		echo '<h2>Existing events</h2>
+		<ul>';
+
+		$sql = 'SELECT * FROM `events` LIMIT 0 , 30';
+
+		foreach (DB::$dbh->query($sql) as $event) {
+			echo '<li class="event"><a href="?eventId=' . $event['id'] . '">' . $event['namn'] .  '</a></li>';
+		}
+
+		echo '</ul>';
 
 	}
 
 	public function choosePlugins()
 	{
+		echo '<ul>';
 		foreach(pluginLoader::plugins() as $plugin)
 		{
-			echo '<a href="">'.get_class($plugin).'</a><br/>'; 
+			echo '<li class="plugin"><a href="?eventId=' . $_GET['eventId'] . '&plugin=' . get_class($plugin) . '">'.get_class($plugin).'</a></li>'; 
 		}
+		echo '</ul>';
 	}
 
 }
