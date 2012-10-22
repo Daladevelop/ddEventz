@@ -28,7 +28,7 @@ class ddPlugin
 
 	}
 
-	public function cache($jsonObj,$instance)
+	public function cache($jsonObj,$instance = 0)
 	{
 		$filename = $this->filename.".".$instance; 
 
@@ -66,8 +66,10 @@ class ddPlugin
 			if( (time() - $timestamp) > CACHETIME) // tio minuter
 			{
 				logger::log(DEBUG, "CACHE - Cache not fresh enough. Requesting new data. ".$this->curPlugin);
-				$this->cache($this->requestData()); 
-				return false;
+				$content = $this->requestData(); 
+
+				$this->cache($content, $instance); 
+				return $content;
 			}
 			else
 			{
