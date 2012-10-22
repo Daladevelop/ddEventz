@@ -77,10 +77,13 @@ class twitter implements pluginInterface {
 	// Parse the result from twitters API
 	private function parseAPIResponse($r) {
 		$r = json_decode($r);
-		//$r = $r->result;
+		//$r = $r->results;
 		$posts = array();
 		//print_r($r->results);
-		if(!is_array($r))
+		//logger::log(DEBUG, 'Twitter response:' . json_encode($r));
+		
+		// This is not an array. It's an object!
+		if(!is_array($r->results))
 			return false; 
 
 		foreach ($r->results as $tweet) {
