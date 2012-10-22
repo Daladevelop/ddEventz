@@ -11,11 +11,20 @@ class twitter extends ddPlugin implements pluginInterface {
 	public function __construct($eventId) {
 		$this->service = 'twitter';	
 		parent::__construct($eventId); 
+
+		$params = array('tag', 'lat', 'lon', 'distance');
+		$this->adminparameters = $params;
 	}
 
 	public function admin()
 	{
 		echo "ADMINPAGE FOR TWITTERPLUGINS! Japp Japp!"; 
+
+		$parameters = $this->adminInterface();
+		echo 'Parameters: ';
+		foreach ($parameters as $param) {
+			echo $param . ' ';	
+		}
 	}
 	public function setParameters(array $parameters) {
 		$this->tag = null; 
