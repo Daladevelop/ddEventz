@@ -65,34 +65,38 @@ class DDeventz
 		foreach(pluginLoader::plugins() as $plugin)
 		{
             //get the parameters for the plugin from the db
-            $sql = "select parm,value from events_plugins where eventId =$eventId and plugin='".get_class($plugin)."'";
+            $sql = "select parm,value,instance from events_plugins where eventId =$eventId and plugin='".get_class($plugin)."'";
 
 //            logger::log(DEBUG,$sql); 
             $parameters = array();  
 
             //have it the correct way in an array. key => value. 
             foreach(DB::$dbh->query($sql) as $parm)
-            {
-                $parameters[$parm['parm']] = $parm['value'];
+			{
+				$parameters[$parm['instance']] = array(); 
+                $parameters[$parm['instance']][$parm['parm']] = $parm['value'];
                 
 
             }
-
-			$plugin->setParameters($parameters); 
-
-			//get the feed from the plugin
-            $newItems = json_decode($plugin->getFeed());
-            logger::log(DEBUG, "Getting the feed-items from ".get_class($plugin)); 
-
-			if(!is_array($newItems))
+			foreach($parameters as $key => $instance)
 			{
-				logger::log(DEBUG,get_class($plugin)." returned no objects. "); 
-				continue; 
-			}	
-			//loop through the items
-            foreach($newItems as $item)
-			{
-				array_push($this->feed, $item);
+
+				$plugin->setParameters($instance); 
+
+				//get the feed from the plugin
+				$newItems = json_decode($plugin->getFeed($key));
+				logger::log(DEBUG, "Getting the feed-items from ".get_class($plugin)); 
+
+				if(!is_array($newItems))
+				{
+					logger::log(DEBUG,get_class($plugin)." returned no objects. "); 
+					continue; 
+				}	
+				//loop through the items
+				foreach($newItems as $item)
+				{
+					array_push($this->feed, $item);
+				}
 			}			
 		}
 

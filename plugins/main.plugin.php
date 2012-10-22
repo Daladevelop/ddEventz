@@ -21,27 +21,26 @@ class ddPlugin
 	}
 
 
-	public function getFeed() {
-		$response = $this->getCache();
-
+	public function getFeed($instance) {
+		$response = $this->getCache($instance);
 		return $response; 
 
 
 	}
 
-	public function cache($jsonObj)
+	public function cache($jsonObj,$instance)
 	{
-
+		$filename = $this->filename.".".$instance; 
 
 			
-		if(!file_exists($this->filename))
+		if(!file_exists($filename))
 		{
-			touch($this->filename);
-			logger::log(DEBUG, "No cache file. Trying to create: ".$this->filename); 
+			touch($filename);
+			logger::log(DEBUG, "No cache file. Trying to create: ".$filename); 
 		
 		}
 		
-		$fp = fopen($this->filename, 'w');
+		$fp = fopen($filename, 'w');
 		if($fp)
 		{
 			fwrite($fp, time()."\n");
@@ -50,16 +49,17 @@ class ddPlugin
 			fclose($fp); 
 		}
 		else
-			logger::log(DEBUG,'CACHE - could not open file:'. $this->filename);
+			logger::log(DEBUG,'CACHE - could not open file:'. $filename);
 
 	}
 
-	public function getCache()
+	public function getCache($instance)
 	{
+		$filename = $this->filename.".".$instance; 
 
-		if(file_exists($this->filename))
+		if(file_exists($filename))
 		{
-			$fp = fopen($this->filename,'r');
+			$fp = fopen($filename,'r');
 			$timestamp = fgets($fp);
 			if(!defined("CACHETIME"))
 				define("CACHETIME",600); //can be set in settings.php
@@ -80,7 +80,7 @@ class ddPlugin
 		else
 		{
 			$content = $this->requestData();
-			$this->cache($content);
+			$this->cache($content,$instance);
 
 			return $content; 
 

@@ -103,15 +103,15 @@ class DB
             
             case("events_plugins"):
 
-                $sql = "CREATE TABLE IF NOT EXISTS `events_plugins` (
-                        `eventId` int(11) NOT NULL,
-                        `plugin` varchar(100) NOT NULL,
-                        `parm` varchar(100) NOT NULL,
-                        `value` varchar(100) NOT NULL
-                     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+				$sql = "CREATE TABLE IF NOT EXISTS `events_plugins` (
+					  `eventId` int(11) NOT NULL,
+					  `plugin` varchar(100) NOT NULL,
+					  `instance` int(11) NOT NULL DEFAULT '0',
+					  `parm` varchar(100) NOT NULL,
+					  `value` varchar(100) NOT NULL
+					) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+				break;
 
-
-                break;
 			case("events_users"):
 				$sql ="CREATE TABLE IF NOT EXISTS `events_users` (
 					  `id` int(11) NOT NULL AUTO_INCREMENT,
