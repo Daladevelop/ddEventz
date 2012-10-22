@@ -21,11 +21,19 @@ class instagram extends ddPlugin implements pluginInterface {
 	public function __construct ($eventId) {
 		$this->service = 'instagram';
 		parent::__construct($eventId); 
+		$this->adminparameters = array('tag', 'lat', 'lon', 'distance');
 	}
 
 	public function admin()
 	{
 		echo "YEP"; 
+
+		$parameters = $this->adminInterface();
+		echo 'Parameters: ';
+		foreach ($parameters as $param) {
+			echo $param . ' ';	
+		}
+
 	}
 	public function setParameters(array $paramters) {
 		$this->parameters = $paramters;
