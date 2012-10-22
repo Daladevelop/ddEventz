@@ -3,13 +3,14 @@
 require_once('plugin.interface.php');
 
 
-class appdotnet implements pluginInterface {
+class appdotnet extends ddPlugin implements pluginInterface {
 
 	//private $geo = array();
 	private $tag, $query;
 
-	public function __construct() {
-		$this->service = 'app.net';	
+	public function __construct($eventId) {
+		$this->service = 'app.net';
+		parent::__construct($eventId);
 
 	}
 
@@ -24,12 +25,10 @@ class appdotnet implements pluginInterface {
 		}
 	}
 
-	public function getFeed() {
-		$this->makeAppNetQuery();
-		
+	/*public function getFeed() {	
 		$response = $this->requestData();
 		return $this->parseAPIResponse($response);
-	}
+	}*/
 	
 
 	// twitter class specific methods is below here
@@ -46,7 +45,9 @@ class appdotnet implements pluginInterface {
 	/**
 	 * Request the tweets from the twitter api
 	 */
-	private function requestData() {
+	public function requestData() {
+		$this->makeAppNetQuery();
+
 		// Check to see if cURL is installed
 		if (function_exists('curl_init')) {
 			// Set up cURL 
