@@ -62,7 +62,8 @@ class appdotnet extends ddPlugin implements pluginInterface {
 			$response = curl_exec($curl);
 			curl_close($curl);
 			
-			return $response;
+			//return $response;
+			return $this->parseAPIResponse($response);
 		} else {
 			// Log the fact that cURL isn't installed
 			logger::log(ALL, 'Failed to find function \'curl_init\'. This will prevent plugin' . $plugin . 'from working.');
