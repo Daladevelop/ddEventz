@@ -21,7 +21,24 @@ class instagram extends ddPlugin implements pluginInterface {
 	public function __construct ($eventId) {
 		$this->service = 'instagram';
 		parent::__construct($eventId); 
-		$this->adminparameters = array('tag', 'lat', 'lon', 'distance');
+		$this->adminparameters = array(
+			'tag' => array(
+				'label' => 'Tag',
+				'description' => 'What Instagram hashtag do you want the plugin to search for?'
+			),
+			'lat' => array(
+				'label' => 'Latitude',
+				'description' => 'Latitude'
+			),
+			'lon' => array(
+				'label' => 'Longitude',
+				'description' => 'Longitude'
+			),
+			'distance' => array(
+				'label' => 'Distance',
+				'description' => 'Distance (raduis) from set coordinates.'
+			)
+		);
 	}
 
 	public function admin()

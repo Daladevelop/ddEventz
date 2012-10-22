@@ -12,8 +12,24 @@ class twitter extends ddPlugin implements pluginInterface {
 		$this->service = 'twitter';	
 		parent::__construct($eventId); 
 
-		$params = array('tag', 'lat', 'lon', 'distance');
-		$this->adminparameters = $params;
+		$this->adminparameters = array(
+			'tag' => array(
+				'label' => 'Tag',
+				'description' => 'What Twitter hashtag do you want the plugin to search for?'
+			),
+			'lat' => array(
+				'label' => 'Latitude',
+				'description' => 'Latitude'
+			),
+			'lon' => array(
+				'label' => 'Longitude',
+				'description' => 'Longitude'
+			),
+			'distance' => array(
+				'label' => 'Distance',
+				'description' => 'Distance (raduis) from set coordinates.'
+			)
+		);	
 	}
 
 	public function admin()

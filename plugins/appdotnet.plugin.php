@@ -12,7 +12,12 @@ class appdotnet extends ddPlugin implements pluginInterface {
 	public function __construct($eventId) {
 		$this->service = 'app.net';
 		parent::__construct($eventId);
-		array_push($this->adminparameters, 'tag');
+		$this->adminparameters = array(
+			'tag' => array(
+				'label' => 'Tag',
+				'description' => 'What App.Net hashtag do you want the plugin to search for?'
+			)
+		);
 	}
 
 	public function admin()
