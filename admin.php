@@ -39,8 +39,8 @@ class adminInterface
 			if(class_exists($_GET['plugin']))
 			{
 				logger::log(DEBUG, "Loading admin page for ".$_GET['plugin']);
-
-				call_user_func(array($_GET['plugin'],"admin"));
+				$plug = new $_GET['plugin']($_GET['eventId']);
+				$plug->admin();
 
 			}
 			else

@@ -2,6 +2,9 @@
 
 class ddPlugin
 {
+
+	public $adminparameters = array();
+
 	public function __construct($eventId)
 	{
 	
@@ -26,6 +29,10 @@ class ddPlugin
 		return $response; 
 
 
+	}
+
+	public function adminInterface() {
+		return $this->adminparameters;	
 	}
 
 	public function cache($jsonObj,$instance = 0)
