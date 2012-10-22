@@ -70,7 +70,7 @@ class ddPlugin
 			$timestamp = fgets($fp);
 			if( (time() - $timestamp) > 600) // tio minuter
 			{
-				logger::log(DEBUG, "CACHE - Cache not fresh enough. Requesting new data. ".$this-_>curPlugin);
+				logger::log(DEBUG, "CACHE - Cache not fresh enough. Requesting new data. ".$this->curPlugin);
 				$this->cache($this->requestData()); 
 				return false;
 			}
