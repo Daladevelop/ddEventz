@@ -22,15 +22,8 @@ class ddPlugin
 
 
 	public function getFeed() {
-		$response = false;
 		$response = $this->getCache();
 
-		if(!$response)
-		{
-			$response = $this->requestData();
-			$this->cache($response); 
-
-		}
 		return $response; 
 
 
@@ -83,7 +76,7 @@ class ddPlugin
 
 		}
 		else
-			return false; 
+			return $this->cache($this->requestData() ); 
 
 	}	
 
