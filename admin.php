@@ -70,13 +70,6 @@ class adminInterface
 		}
 	}
 
-	public function listAllPlugins() {
-		foreach (glob("plugins/*.plugin.php") as $plugin) {
-			$plugins = array();
-			array_push($plugins, $plugin);	
-		}
-		return $plugins;
-	} 
 }
 
 $admin = new adminInterface(); 
