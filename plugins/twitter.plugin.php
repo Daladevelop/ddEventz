@@ -18,6 +18,9 @@ class twitter extends ddPlugin implements pluginInterface {
 		echo "ADMINPAGE FOR TWITTERPLUGINS! Japp Japp!"; 
 	}
 	public function setParameters(array $parameters) {
+		$this->tag = null; 
+		$this->geo = array(); 
+		logger::log(DEBUG,"TWITTER - ".print_r($parameters,true)); 
 		// Set the parameters for the query to twitter
 		if (isset($parameters['tag'])) {
 			$this->tag = $parameters['tag'];
@@ -33,6 +36,7 @@ class twitter extends ddPlugin implements pluginInterface {
 			} else {
 				$this->geo['distance'] = '5000'; // 5 km
 			}
+			logger::log(DEBUG, "TWITTER - Making geo request"); 
 		}
 		$this->makeTwitterQuery();
 
@@ -48,9 +52,11 @@ class twitter extends ddPlugin implements pluginInterface {
 
 		if (isset($this->tag)) { // Make a search query by tag
 			$this->query = $base_query . urlencode('#' . $this->tag);
-		} elseif ((isset($this->geo)) && (count($this->geo) >2 )) {
+		} elseif ((isset($this->geo)) && (count($this->geo) >0 )) {
 			$this->query = $base_query . '&' . 'geocode=' . $this->geo['lat'] . urlencode(',') . $this->geo['lon'] . urlencode (',') . $this->geo['distance'] / 1000 . 'km';
 		}
+
+		logger::log(DEBUG, "TWITTER - Query: ".$this->query );
 	}
 
 	/**

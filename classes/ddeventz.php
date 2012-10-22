@@ -73,7 +73,6 @@ class DDeventz
             //have it the correct way in an array. key => value. 
             foreach(DB::$dbh->query($sql) as $parm)
 			{
-				$parameters[$parm['instance']] = array(); 
                 $parameters[$parm['instance']][$parm['parm']] = $parm['value'];
                 
 
