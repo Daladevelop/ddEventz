@@ -7,16 +7,23 @@ class appdotnet extends ddPlugin implements pluginInterface {
 
 	//private $geo = array();
 	private $tag, $query;
+	
 
 	public function __construct($eventId) {
 		$this->service = 'app.net';
 		parent::__construct($eventId);
-
+		array_push($this->adminparameters, 'tag');
 	}
 
 	public function admin()
 	{
-		echo "ADMINPAGE FOR APP.NET-PLUGINS! Japp Japp!"; 
+		echo "ADMINPAGE FOR APP.NET-PLUGINS! Japp Japp!";
+
+		$parameters = $this->adminInterface();
+		echo 'Parameters: ';
+		foreach ($parameters as $param) {
+			echo $param . ' ';	
+		}
 	}
 	public function setParameters(array $parameters) {
 		// Set the parameters for the query to twitter
