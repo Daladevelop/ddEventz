@@ -23,8 +23,12 @@ require_once('classes/logger.class.php');
 logger::init(); 
 
 // load the settings
-require_once('settings.php');
-
+if(file_exists('settings.php'))
+	require_once('settings.php');
+else
+{
+	die("You need to create a settings.php with atleast some database settings. See settings-example.php"); 
+}
 //load the databasehandler and our db class
 require_once('classes/db.class.php');
 
