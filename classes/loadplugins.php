@@ -20,7 +20,7 @@ class pluginLoader
 			//if its the main plugin jump on to next plug! 
 			if($plugin === 'main')
 				continue; 
-
+			
 			//create new object from plugin class
 			$temp = new $plugin($_REQUEST['eventId']);
 			

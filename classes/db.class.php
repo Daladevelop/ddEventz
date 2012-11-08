@@ -12,15 +12,12 @@ class DB
         $hostname = DBHOST;
 		$username = DBUSER;
 		$password = DBPASSWORD;
-		
-		/*$hostname = "localhost"; 
-        $username = "root";
-        $password = "tjipp"; 
-		*/
+		$db = DBDATABASE;
+
 
         try{
 
-            self::$dbh = new PDO("mysql:host=$hostname;dbname=ddEventz", $username, $password);
+            self::$dbh = new PDO("mysql:host=$hostname;dbname=$db", $username, $password);
 
     }
     catch(PDOException $e)
