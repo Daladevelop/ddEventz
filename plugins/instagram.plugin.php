@@ -20,24 +20,32 @@ class instagram extends ddPlugin implements pluginInterface {
 
 	public function __construct ($eventId) {
 		$this->service = 'instagram';
+		
+		//run parent class construct as well.
+
 		parent::__construct($eventId); 
+
 		$this->adminparameters = array(
-			'tag' => array(
-				'label' => 'Tag',
-				'description' => 'What Instagram hashtag do you want the plugin to search for?'
+			'label' => 'Instagram',
+			'parms' => array(
+				'tag' => array(
+					'label' => 'Tag',
+					'description' => 'What Instagram hashtag do you want the plugin to search for?'
+				),
+				'lat' => array(
+					'label' => 'Latitude',
+					'description' => 'Latitude'
+				),
+				'lon' => array(
+					'label' => 'Longitude',
+					'description' => 'Longitude'
+				),
+				'distance' => array(
+					'label' => 'Distance',
+					'description' => 'Distance (raduis) from set coordinates.'
+				)
 			),
-			'lat' => array(
-				'label' => 'Latitude',
-				'description' => 'Latitude'
-			),
-			'lon' => array(
-				'label' => 'Longitude',
-				'description' => 'Longitude'
-			),
-			'distance' => array(
-				'label' => 'Distance',
-				'description' => 'Distance (raduis) from set coordinates.'
-			)
+			'description' => 'Get a feed of images from instagram'
 		);
 	}
 

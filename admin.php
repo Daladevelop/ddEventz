@@ -26,38 +26,70 @@ class adminInterface
 		logger::log(DEBUG,"ADMIN Mode started.\r\n"); 
 
 		//Check how far we have come in admin mode
-		//
+		
 
 
 		//if only eventid is set, lets serve some plugins
-		if(isset($_GET['eventId']) && !isset($_GET['plugin']))
-		{
-			echo $this->choosePlugins(); 
-		}
-		elseif( isset($_GET['eventId']) && isset($_GET['plugin']) )
-		{
-			if(class_exists($_GET['plugin']))
-			{
-				logger::log(DEBUG, "Loading admin page for ".$_GET['plugin']);
-				$plug = new $_GET['plugin']($_GET['eventId']);
-				$plug->admin();
+		if(isset($_GET['eventId']) && !isset($_GET['plugin'])){
 
-			}
-			else
-			{
-				logger::log(DEBUG, "The choosen plugin does not exist."); 
-				return false; 
-			}
-
-
+			echo $this->pluginAdmin(); 
 		}
 		else
 			$this->eventPicker();
 
 	}
 
+	public function header()
+	{
+		$str = '<html>
+				<head>
+					<title>Admin</title>
+					<link rel="stylesheet" href="/admininterface/style.css" type="text/css" />
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+					<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+					<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+				</head>
+				<body>';
+	
+		return $str; 
+	}
+
+	public function footer()
+	{
+		$str = '<script src="/admininterface/admin.js" type="text/javascript"></script>
+				</div>
+				</body>
+				</html>';
+
+		return $str; 
+
+	}
+
+	public function pluginAdmin()
+	{
+		echo $this->header(); 
+
+		echo '<div id="main">';
+		echo '		<section id="activeplugins">
+
+			</section>';
+		echo '</div>';
+
+		echo '<aside id="pluginlist">';
+		
+		$plugins = pluginLoader::plugins(); 
+		foreach($plugins as $plugin)
+			echo $plugin->adminInterface(); 	
+
+		echo '</aside>';
+
+		echo $this->footer(); 
+
+	}
+
 	public function eventPicker()
 	{
+		echo $this->header(); 
 		echo '<h2>Existing events</h2>
 		<ul>';
 
@@ -68,7 +100,7 @@ class adminInterface
 		}
 
 		echo '</ul>';
-
+		echo $this->footer(); 
 	}
 
 	public function choosePlugins()

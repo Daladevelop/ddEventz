@@ -50,6 +50,4 @@ if(!db::init())
 //Load all social plugins
 pluginLoader::all();
 
-//shut things down
-logger::shutDown(); 
 ?>

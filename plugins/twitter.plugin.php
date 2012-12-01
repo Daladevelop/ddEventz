@@ -13,22 +13,26 @@ class twitter extends ddPlugin implements pluginInterface {
 		parent::__construct($eventId); 
 
 		$this->adminparameters = array(
-			'tag' => array(
-				'label' => 'Tag',
-				'description' => 'What Twitter hashtag do you want the plugin to search for?'
+			'label' => 'Twitter',
+			'parms' => array(
+				'tag' => array(
+					'label' => 'Tag',
+					'description' => 'What Twitter hashtag do you want the plugin to search for?'
+				),
+				'lat' => array(
+					'label' => 'Latitude',
+					'description' => 'Latitude'
+				),
+				'lon' => array(
+					'label' => 'Longitude',
+					'description' => 'Longitude'
+				),
+				'distance' => array(
+					'label' => 'Distance',
+					'description' => 'Distance (raduis) from set coordinates.'
+				)
 			),
-			'lat' => array(
-				'label' => 'Latitude',
-				'description' => 'Latitude'
-			),
-			'lon' => array(
-				'label' => 'Longitude',
-				'description' => 'Longitude'
-			),
-			'distance' => array(
-				'label' => 'Distance',
-				'description' => 'Distance (raduis) from set coordinates.'
-			)
+			'description' => 'A plugin to get a feed from twitter'
 		);	
 	}
 

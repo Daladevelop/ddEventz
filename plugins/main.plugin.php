@@ -32,7 +32,20 @@ class ddPlugin
 	}
 
 	public function adminInterface() {
-		return $this->adminparameters;	
+		$str = '<div class="plugin" draggable="true">';
+		$str .= '<h3>'.$this->adminparameters['label'].'</h3>';
+		$str .= '<span class="description">'.$this->adminparameters['description'].'</span>';		
+		$str .= '<div class="admin">';
+		foreach($this->adminparameters['parms'] as $key => $pluginParm)
+		{
+			$str .= $pluginParm['label'].': <input type="text" name="'.$key.'" placeholder="'.$pluginParm['description'].'"/>'; 
+
+		}
+
+		$str .= '</div>'; 
+
+		$str.= '</div>';
+		return $str; 
 	}
 
 	public function cache($jsonObj,$instance = 0)

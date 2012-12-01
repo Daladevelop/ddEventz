@@ -9,6 +9,5 @@ interface pluginInterface
 
 	public function getFeed($instance); 
     
-    public function admin(); 	
 
 }
