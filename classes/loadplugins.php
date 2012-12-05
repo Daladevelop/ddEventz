@@ -39,6 +39,17 @@ class pluginLoader
 
 
 	}
+	
+	static public function getPlugin($name)
+	{
+		foreach(self::$plugins as $plug)
+		{
+			if($plug->curPlugin === $name)
+				return $plug;
+		}
+
+
+	}
 
 	static public function plugins()
 	{

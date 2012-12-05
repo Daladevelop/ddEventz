@@ -65,20 +65,61 @@ class adminInterface
 
 	}
 
+	public function getActivePlugins()
+	{
+		//This function gets what plugins are active for this event
+		//later i dont know if this functionality should be here or some where else. 
+		$eventId = $_GET['eventId'];
+		
+		$sql = "select plugin,parm,value,instance from events_plugins where eventid = ".$eventId; 
+		$activePlugins = array(); 
+
+		foreach( DB::$dbh->query($sql) as $plugin)
+		{
+			if( !isset($activePlugins[$plugin['plugin']]) )
+			{
+				$activePlugins[$plugin['plugin']] = array();
+
+				if( !isset( $activePlugins[$plugin['plugin']][$plugin['instance']] )) // <-- error på den här raden
+				{
+					$activePlugins[$plugin['plugin']][$plugin['instance']] = array();
+
+				}
+				
+				$activePlugins[$plugin['plugin']][$plugin['instance']][$plugin['parm']] = $plugin['value'];
+ 			}
+ 		}
+
+		foreach($activePlugins as $name => $plugin)
+		{
+			foreach($plugin as $pluginInstance)
+			{
+				echo pluginLoader::getPlugin($name)->adminInterface($pluginInstance);
+
+			}
+		}
+
+ 
+
+	}
+
 	public function pluginAdmin()
 	{
+		$this->plugins = pluginLoader::plugins(); 
 		echo $this->header(); 
 
 		echo '<div id="main">';
-		echo '		<section id="activeplugins">
+		echo '		<section id="activeplugins">';
 
-			</section>';
+		echo $this->getActivePlugins(); 
+		
+		echo '	</section>';
+		echo '<div class="pluginbuttons">Save / Clear</div>';
 		echo '</div>';
 
 		echo '<aside id="pluginlist">';
 		
-		$plugins = pluginLoader::plugins(); 
-		foreach($plugins as $plugin)
+		foreach($this->plugins as $plugin)
 			echo $plugin->adminInterface(); 	
 
 		echo '</aside>';

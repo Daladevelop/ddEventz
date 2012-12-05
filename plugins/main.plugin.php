@@ -31,14 +31,17 @@ class ddPlugin
 
 	}
 
-	public function adminInterface() {
+	public function adminInterface($parms = false) {
 		$str = '<div class="plugin" draggable="true">';
 		$str .= '<h3>'.$this->adminparameters['label'].'</h3>';
 		$str .= '<span class="description">'.$this->adminparameters['description'].'</span>';		
 		$str .= '<div class="admin">';
 		foreach($this->adminparameters['parms'] as $key => $pluginParm)
 		{
-			$str .= $pluginParm['label'].': <input type="text" name="'.$key.'" placeholder="'.$pluginParm['description'].'"/>'; 
+			if($parms && isset($parms[$key]))
+				$str .= $pluginParm['label'].': <input type="text" name="'.$key.'" placeholder="'.$pluginParm['description'].'" value="'.$parms[$key].'"/>'; 
+			else
+				$str .= $pluginParm['label'].': <input type="text" name="'.$key.'" placeholder="'.$pluginParm['description'].'"/>'; 
 
 		}
 

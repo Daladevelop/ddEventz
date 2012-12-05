@@ -1,13 +1,14 @@
-body{background-color: #e9e9e9; }
+body{background-color: #e9e9e9; font-size: 12px;  }
 h3{margin: 0; }
 
 aside#pluginlist{
 	float: right;
-	width: 300px; 
+	width: 16%; 
+	border: 1px solid; 
 }
 
 aside#pluginlist div.plugin{
-	height: 42px; 
+	height: 52px; 
 	border: 1px solid #333; 
 	margin: 10px;
    	text-align: center;
@@ -23,19 +24,29 @@ aside#pluginlist div.plugin div.admin
 
 div#main{
 	float: left; 
-	width: 800px;
+	width: 80%;
 }
 
 section#activeplugins
 {
-	width: 500px; 
+	width: 100%; 
 	margin: 0 auto; 
 	border: 1px solid #333; 
 	min-height: 200px; 
+	padding: 20px; 
 }
 
 section#activeplugins.over{
 border: 5px solid #333; 
+}
+
+section#activeplugins div.plugin
+{
+	border: 2px dashed #ddd; 
+	margin: 3px; 
+	padding: 20px;
+    max-width: 50%;
+	float: left; 	
 }
 /* Prevent the text contents of draggable elements from being selectable. */
 
@@ -46,3 +57,12 @@ border: 5px solid #333;
   user-select: none;
 }
 
+div.pluginbuttons{float: right; }
+
+div.pluginbuttons:after{
+	content: ".";
+	    display: block;
+		    height: 0;
+			    clear: both;
+				    visibility: hidden;
+}
