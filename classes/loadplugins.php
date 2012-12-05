@@ -22,7 +22,13 @@ class pluginLoader
 				continue; 
 			
 			//create new object from plugin class
-			$temp = new $plugin($_REQUEST['eventId']);
+			if(isset($_REQUEST['eventId']))
+				$temp = new $plugin($_REQUEST['eventId']);
+			else
+			{
+				logger::log(DEBUG,"Inget eventid. Stoppar"); 
+				die("Inget Eventid. Stoppar"); 
+			}
 			
 			//check that current plugin is infact using our pluginInterface! 
 			if($temp instanceof pluginInterface)
