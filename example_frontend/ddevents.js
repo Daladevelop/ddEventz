@@ -3,7 +3,7 @@ var pointer = -1;
 var cardslist;
 $(document).ready(function() {
 
-	$.getJSON('../index.php?callback=?&eventId=1', function(data) {
+	$.getJSON('../index.php?callback=?&eventId=2', function(data) {
 		var content = '<ul class="cardslist">';
 		for (var i in data) {
 			content += '<li class="hidden cards">';

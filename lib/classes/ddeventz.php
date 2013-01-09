@@ -44,8 +44,8 @@ class DDeventz
 
             else
             {
-                echo "<a href='index.php?callback=?&eventId=".$_REQUEST['eventId']."'>Callback</a><br/>";
-                echo "<a href='index.php?debug=1&eventId=".$_REQUEST['eventId']."'>Debug</a><br/>"; 	
+                echo "<a href='feed.php?callback=?&eventId=".$_REQUEST['eventId']."'>Callback</a><br/>";
+                echo "<a href='feed.php?debug=1&eventId=".$_REQUEST['eventId']."'>Debug</a><br/>"; 	
             }
         }
         else

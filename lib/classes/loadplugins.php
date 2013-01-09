@@ -7,7 +7,7 @@ class pluginLoader
 	static public function all()
 	{
 		//Load all classes
-		foreach( glob("plugins/*.plugin.php") as $plugin)
+		foreach( glob("../lib/plugins/*.plugin.php") as $plugin)
 		{
 			//require them
 			require_once($plugin);
@@ -15,7 +15,7 @@ class pluginLoader
 
 			//get the plugin name from the plugin path
 			$plugin = substr($plugin, 0, -11);
-			$plugin = substr($plugin, 8); 
+			$plugin = substr($plugin, 15); 
 			
 			//if its the main plugin jump on to next plug! 
 			if($plugin === 'main')

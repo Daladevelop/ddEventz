@@ -105,12 +105,12 @@ h2 {
 	z-index: 5;
 
 	/* Transform */
-	-webkit-transform: rotateY(180deg);
+	-webkit-transform: rotate(360deg);
 }
 
 .cardslist.reversed {
 	/* Transform */
-	-webkit-transform: rotateY(180deg);
+	-webkit-transform: rotate(360deg);
 }
 
 .cardslist.reversed li:nth-of-type(2n) {
