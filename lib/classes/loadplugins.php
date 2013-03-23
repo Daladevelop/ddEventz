@@ -7,16 +7,24 @@ class pluginLoader
 	static public function all()
 	{
 		//Load all classes
-		foreach( glob("../lib/plugins/*.plugin.php") as $plugin)
+		foreach( glob("lib/plugins/*.plugin.php") as $plugin)
 		{
 			//require them
-			require_once($plugin);
+			logger::log(DEBUG, "Requiring plugin: ".$plugin); 
+			if(is_file($plugin))
+			{
+				logger::log(DEBUG, "Found file!");
+				require_once($plugin);
+			}
+			else
+				logger::log(DEBUG, "Could not require $plugin . File does not exist"); 
 
 
 			//get the plugin name from the plugin path
 			$plugin = substr($plugin, 0, -11);
-			$plugin = substr($plugin, 15); 
+			$plugin = substr($plugin, 12); 
 			
+			logger::log(DEBUG, "The plugin to load is: ".$plugin);	
 			//if its the main plugin jump on to next plug! 
 			if($plugin === 'main')
 				continue; 
@@ -50,7 +58,8 @@ class pluginLoader
 	{
 		foreach(self::$plugins as $plug)
 		{
-			if($plug->curPlugin === $name)
+			logger::log(DEBUG, "Checking plugin: ".get_class($plug)); 	
+			if(get_class($plug) === $name)
 				return $plug;
 		}
 

@@ -25,8 +25,7 @@ class adminInterface
 		
 		logger::log(DEBUG,"ADMIN Mode started.\r\n"); 
 
-		//Check how far we have come in admin mode
-		
+		pluginLoader::all(); 	
 
 
 		//if only eventid is set, lets serve some plugins
@@ -94,6 +93,8 @@ class adminInterface
 		{
 			foreach($plugin as $pluginInstance)
 			{
+				$curPlug = pluginLoader::getPlugin($name); 
+				logger::log(DEBUG, "PLUGIN TYPE: ".gettype($curPlug));
 				echo pluginLoader::getPlugin($name)->adminInterface($pluginInstance);
 
 			}
