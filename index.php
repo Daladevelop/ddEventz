@@ -14,7 +14,7 @@
 
 
 //load config.php, it will load all plugins.
-require_once('config.php'); 
+require_once('conf/config.php'); 
 
 
 class adminInterface

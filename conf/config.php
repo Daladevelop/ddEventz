@@ -19,24 +19,24 @@ date_default_timezone_set('UTC');
 //All config settings are done, lets do this!
 
 //load all requirements
-require_once('../lib/classes/logger.class.php'); 
+require_once('lib/classes/logger.class.php'); 
 logger::init(); 
 
 // load the settings
-if(file_exists('../settings.php'))
-	require_once('../settings.php');
+if(file_exists('settings.php'))
+	require_once('settings.php');
 else
 {
 	logger::log(DEBUG,'Create settings.php'); 
 	die("You need to create a settings.php with atleast some database settings. See settings-example.php"); 
 }
 //load the databasehandler and our db class
-require_once('../lib/classes/db.class.php');
+require_once('lib/classes/db.class.php');
 
 
-require_once('../lib/classes/ddeventz.php');
-require_once('../lib/classes/loadplugins.php');
-require_once('../lib/plugins/main.plugin.php'); 
+require_once('lib/classes/ddeventz.php');
+require_once('lib/classes/loadplugins.php');
+require_once('lib/plugins/main.plugin.php'); 
 
 //do some databasechecking
 
