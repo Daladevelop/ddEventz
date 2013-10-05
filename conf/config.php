@@ -25,6 +25,11 @@ logger::init();
 // load the settings
 if(file_exists('settings.php'))
 	require_once('settings.php');
+elseif(file_exists("../settings.php"))
+{
+	
+	require_once('../settings.php');
+}
 else
 {
 	logger::log(DEBUG,'Create settings.php'); 
