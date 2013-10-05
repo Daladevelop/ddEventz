@@ -4,4 +4,4 @@
 plugins/scratch
 settings.php
 log.txt
-backend/cache/*
+*cache/
